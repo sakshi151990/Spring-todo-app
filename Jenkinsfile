@@ -8,7 +8,7 @@ pipeline {
             git(url: 'https://github.com/sakshi151990/Spring-todo-app.git', branch: 'development', poll: true, credentialsId: 'Gituser')
           }
         }
-        stage('') {
+        stage('error') {
           steps {
             tool(name: 'MyMaven', type: 'Maven')
           }
