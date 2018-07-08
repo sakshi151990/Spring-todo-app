@@ -69,11 +69,7 @@
 		<version>3.3.6</version>
 		
 		</dependency>
-		<dependency>
-    <groupId>org.hsqldb</groupId>
-    <artifactId>hsqldb</artifactId>
-    <scope>test</scope>
-</dependency>
+		
 	</dependencies>
 	
 	<build>
@@ -82,7 +78,8 @@
     <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
+        <version>2.0.1.RELEASE</version>
+    </plugin>
 </plugins>
 	
 </build>

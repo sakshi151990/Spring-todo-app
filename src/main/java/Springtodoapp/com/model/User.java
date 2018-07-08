@@ -1,9 +1,7 @@
 package Springtodoapp.com.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "user")
 public class User {
 
 	public User(String username, String password, String email, String firstName, String lastName) {
