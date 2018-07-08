@@ -1,19 +1,14 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'master'
+    }
+
+  }
   stages {
     stage('SCM checkout') {
-      parallel {
-        stage('SCM checkout') {
-          steps {
-            git(url: 'https://github.com/sakshi151990/Spring-todo-app.git', branch: 'development', poll: true, credentialsId: 'Gituser')
-          }
-        }
-        stage('error') {
-          steps {
-            tool(name: 'MyMaven', type: 'Maven')
-            tool(name: 'MyMaven', type: 'maven')
-          }
-        }
+      steps {
+        git(url: 'https://github.com/sakshi151990/Spring-todo-app.git', branch: 'development', poll: true, credentialsId: 'Gituser')
       }
     }
   }
