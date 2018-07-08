@@ -3,25 +3,42 @@ package Springtodoapp;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import Springtodoapp.com.SpringTodoAppApplication;
 import Springtodoapp.com.data.UserRepository;
+import Springtodoapp.com.model.User;
 import Springtodoapp.com.web.HomeController;
 import Springtodoapp.com.web.LoginController;
 
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringTodoAppApplication.class)
 public class UserLoginTest {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Before
+	public void createuser() {
+		User user1 = new User("Sakshi", "password1", "sakshi@xyz.com", "Sakshi", "Agarwal");
+		User user2 = new User("John", "password1", "john@xyz.com", "John", "Agarwal");
+
+		userRepository.save(user1);
+		userRepository.save(user2);
+
+		userRepository.findAll().forEach(System.out::println);
+
+	}
 
 	@Test
 	public void Indexpage() throws Exception {
@@ -51,6 +68,13 @@ public class UserLoginTest {
 		MockMvc mockmvc = MockMvcBuilders.standaloneSetup(controller).build();
 		mockmvc.perform(post("/login").param("username", "Sakshi").param("password", "abc123"))
 				.andExpect(view().name("error"));
+	}
+
+	@After
+	public void removeuser() {
+
+		userRepository.deleteAll();
+
 	}
 
 }
