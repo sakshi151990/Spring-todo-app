@@ -11,6 +11,7 @@ pipeline {
         stage('error') {
           steps {
             tool(name: 'MyMaven', type: 'Maven')
+            tool(name: 'MyMaven', type: 'maven')
           }
         }
       }
