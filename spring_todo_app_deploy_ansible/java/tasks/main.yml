@@ -1,6 +1,5 @@
 ---
 # tasks file for java
-
 - hosts: web-server
   tasks:
   - name: install JDK-devel 
