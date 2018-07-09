@@ -1,21 +1,15 @@
 ---
-- hosts: webserver
-  vars:
-  - warName: {{ warname }}
-  - warRemotePath: /Spring_todo_app/
-
-  tasks:
-  - name: Download WAR to server
-    command: wget http://example.com/file.war -O {{ warRemotePath }}/{{ warName }}
+- name: Download WAR to server
+  command: wget http://example.com/file.war -O {{ warRemotePath }}/{{ warName }}
   
-  - name: Unzip WAR file
-    unarchive: src={{ warRemotePath }}/{{ warName }} dest={{ tomcat_installation_directory}}/webapps/ROOT/ copy=no mode=0755 owner=tomcat7 group=tomcat7
-    notify:
-        - restart tomcat7
+- name: Unzip WAR file
+  unarchive: src={{ warRemotePath }}/{{ warName }} dest={{ tomcat_installation_directory}}/webapps/ROOT/ copy=no mode=0755 owner=tomcat7 group=tomcat7
+  notify:
+        - restart tomcat
    
-  - name: Delete remote war file
-    file: path={{ warRemotePath }}/{{ warName }} state=absent
+- name: Delete remote war file
+  file: path={{ warRemotePath }}/{{ warName }} state=absent
 
   handlers:
-    - name: Restart tomcat7
-      service: name=tomcat7 state=restarted
+    - name: Restart tomcat
+      service: name=tomcat state=restarted

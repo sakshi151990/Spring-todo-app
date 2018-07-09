@@ -1,7 +1,7 @@
 ---
 # vars file for mongodb
-db_name: todoapp
-name: todoapp
-password: 'todoapp'
+database: 'todoapp'
+db_password: 'todoapp123'
+db_user: 'todapp'
 db_path: spring_todo_app/db_data
 mongodb_log: spring_todo_app/mongod_logs

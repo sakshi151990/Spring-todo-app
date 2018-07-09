@@ -1,14 +1,8 @@
 ---
 # tasks file for mongodb
-- hosts: web-server
-  vars: 
-    database: 'todoapp'
-    db_password: 'todoapp123'
-    db_user: 'todapp'
-  tasks:
 
-  - name: 'Add mongodb repo 3.4'
-    yum_repository:
+- name: 'Add mongodb repo 3.4'
+  yum_repository:
      name: "mongodb-org-3.4"
      description: "MongoDB Repository"
      baseurl: https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.4/x86_64/
@@ -17,37 +11,37 @@
      gpgkey: https://www.mongodb.org/static/pgp/server-3.4.asc
      file: mongodb-org-3.4
   
-  - name: 'Install mongodb-org'
-    package:
+- name: 'Install mongodb-org'
+  package:
      name: mongodb-org
      state: latest
 
-  - name: 'Check if pip is installed'
-    command: which pip
-    register: pip_check
-    ignore_errors: yes   
+- name: 'Check if pip is installed'
+  command: which pip
+  register: pip_check
+  ignore_errors: yes   
 
-  - name: Insatll pip
-    yum:
+- name: Insatll pip
+  yum:
      name: python-pip
      state: present
      when: pip_check != '/usr/bin/pip'  
 
-  - name: Install pymongo
-    pip:
+- name: Install pymongo
+  pip:
      name: pymongo
      state: present  
 
-  - name: Deploy Configurations
-    template:
+- name: Deploy Configurations
+  template:
      src: templates/mongodb.conf.j2
      dest: /etc/mongod.conf
-    notify: Start MongoDB
+  notify: Start MongoDB
 
  
 
-  - name: create user and database
-    mongodb_user:
+- name: create user and database
+  mongodb_user:
      database: "{{ database }}"
      name: "{{ db_user }}"
      password: "{{ db_password }}"
