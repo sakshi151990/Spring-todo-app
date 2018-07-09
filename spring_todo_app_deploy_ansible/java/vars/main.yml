@@ -1,4 +1,2 @@
 ---
 # vars file for java
-java_version: "8"
-java_base_path: /usr/lib/jvm
