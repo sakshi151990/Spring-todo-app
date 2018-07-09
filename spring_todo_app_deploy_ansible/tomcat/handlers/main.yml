@@ -1,0 +1,5 @@
+---
+# handlers file for tomcat
+- name: start tomcat
+    
+  command: '{{ tomcat_install_dir }}/bin/startup.sh'

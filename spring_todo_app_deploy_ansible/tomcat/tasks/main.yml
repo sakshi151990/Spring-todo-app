@@ -1,0 +1,57 @@
+---
+# tasks file for tomcat
+- hosts: web-server
+  become: true
+  
+      
+  tasks: 
+
+  - name: Ping the web-server
+    ping:
+
+  - name: create install dorectory
+    file:
+      path: "{{ tomcat_install_dir }}"
+      state: directory
+
+  - name: download tar file
+    get_url:
+        url: http://apache.mirror.amaze.com.au/tomcat/tomcat-8/v8.5.32/bin/apache-tomcat-8.5.32.tar.gz
+        dest:  "{{ tomcat_install_dir }}"
+        force: yes
+
+  - name: Changing perm tar file
+    file: dest="{{ tomcat_install_dir }}"/apache-tomcat-8.5.32.tar.gz mode=0777
+
+  - name:  unarchive tar file
+    shell: 'tar -xvf "{{ tomcat_install_dir }}"/apache-tomcat-8.5.32.tar.gz'
+      
+  
+  - name: create tomcat user and group
+    group:
+     name: "tomcat" 
+     state: present
+     system: yes
+
+  - name: create tomcat user
+    user:
+     name: tomcat
+     state: present
+     group: tomcat
+     shell:  /bin/false
+     home: "{{ tomcat_install_dir }}"
+
+  - name: change permissions
+    file: 
+      path: "{{ tomcat_install_dir }}"
+      owner: tomcat
+      group: tomcat
+      state: directory
+    notify: start tomcat
+
+
+  - name: Deploy war file to tomcat webapp folder
+      
+    
+
+ 
