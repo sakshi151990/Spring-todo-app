@@ -1,0 +1,3 @@
+---
+# vars file for tomcat
+tomcat_install_dir: /spring_todo_app/tomcat-install-directory

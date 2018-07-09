@@ -1,0 +1,26 @@
+---
+# tasks file for java
+
+- hosts: web-server
+  vars:
+    java_version: "8"
+    java_base_path: /usr/lib/jvm
+  tasks:
+  - name: install JDK-devel 
+    yum: 
+     name: java-1.8.0-openjdk-devel.x86_64
+     state: present
+
+
+  - name: Find path for new JAVA binary
+    shell: update-alternatives --display java|grep 'link currently points to'| cut  -f 6 -d " "
+    register: java_bin_path
+
+ 
+
+  - name: Register JAVA_HOME env variable
+    lineinfile: dest=/etc/profile regexp="^(export JAVA_HOME=)" state=present line="export JAVA_HOME={{java_bin_path.stdout | replace('/bin/java','')}}"
+  
+  - name: Execute profile
+    shell: . /etc/profile
+  

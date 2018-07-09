@@ -1,0 +1,9 @@
+---
+- hosts: webserver
+ 
+
+  roles:
+    - java
+    - tomcat
+    - mongodb
+    - deploy_app
