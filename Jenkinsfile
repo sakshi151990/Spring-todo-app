@@ -39,7 +39,7 @@ pipeline {
       steps {
         echo "Build Image"
         sh '''docker --version
-             docker build -t sampleapp_POC ${WORKSPACE} --build-arg APPWORKSPACE=${WORKSPACE}
+             docker build -t sampleapp_poc ${WORKSPACE} --build-arg APPWORKSPACE=${WORKSPACE}
              docker images'''
       }
      }
